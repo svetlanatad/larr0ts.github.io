@@ -1,0 +1,91 @@
+<h1 id="online-classes-management-system">Online Classes Management System</h1>
+<h2 id="phase-1-erd-and-relational-schema">Phase 1: ERD and Relational Schema</h2>
+<p>By <strong>Svetlana Tadevosyan</strong><br/>
+Date: 17 November, 2024</p>
+<hr/>
+<h1 id="project-overview">Project Overview</h1>
+<p>The Online Classes Management System is a database project to manage online courses, students, teachers, and enrollments.</p>
+<p><strong>Entities</strong>:
+- Students
+- Teachers
+- Classes
+- Enrollments</p>
+<p><strong>Focus</strong>:
+- Database design
+- MySQL operations
+- Scalability and efficiency</p>
+<hr/>
+<h1 id="entity-relationship-diagram-erd">Entity-Relationship Diagram (ERD)</h1>
+<p>The ERD displays the relationships among:
+- Students, Teachers, Classes, and Enrollments
+- Students are related to Enrollments (1-to-many)
+- Teachers are related to Classes (1-to-many)
+- Classes are related to Enrollments (1-to-many)</p>
+<p><img src="/home/larr0t/Downloads/ERDSvetlanaTadevosyanPHASE1.png" alt="ERD Image" /></p>
+<hr/>
+<h1 id="relational-schema">Relational Schema</h1>
+<h2 id="students-table">Students Table:</h2>
+<ul>
+<li><code>student_id</code> (Primary Key)</li>
+<li><code>name</code></li>
+<li><code>email</code></li>
+<li><code>status</code></li>
+</ul>
+<h2 id="teachers-table">Teachers Table:</h2>
+<ul>
+<li><code>teacher_id</code> (Primary Key)</li>
+<li><code>name</code></li>
+<li><code>email</code></li>
+</ul>
+<h2 id="classes-table">Classes Table:</h2>
+<ul>
+<li><code>class_id</code> (Primary Key)</li>
+<li><code>class_name</code></li>
+<li><code>description</code></li>
+<li><code>teacher_id</code> (Foreign Key)</li>
+</ul>
+<h2 id="enrollments-table">Enrollments Table:</h2>
+<ul>
+<li><code>enrollment_id</code> (Primary Key)</li>
+<li><code>student_id</code> (Foreign Key)</li>
+<li><code>class_id</code> (Foreign Key)</li>
+</ul>
+<hr/>
+<h1 id="sql-schema-ddl">SQL Schema (DDL)</h1>
+<pre><code class="language-sql">-- Create Students Table
+CREATE TABLE Students (
+    student_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    status VARCHAR(20) NOT NULL
+);
+
+-- Create Teachers Table
+CREATE TABLE Teachers (
+    teacher_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL
+);
+
+-- Create Classes Table
+CREATE TABLE Classes (
+    class_id INT AUTO_INCREMENT PRIMARY KEY,
+    class_name VARCHAR(100) NOT NULL,
+    description TEXT,
+    teacher_id INT,
+    FOREIGN KEY (teacher_id) REFERENCES Teachers(teacher_id)
+);
+
+-- Create Enrollments Table
+CREATE TABLE Enrollments (
+    enrollment_id INT AUTO_INCREMENT PRIMARY KEY,
+    student_id INT,
+    class_id INT,
+    FOREIGN KEY (student_id) REFERENCES Students(student_id),
+    FOREIGN KEY (class_id) REFERENCES Classes(class_id)
+);
+</code></pre>
+<hr/>
+<h1 id="conclusion">Conclusion</h1>
+<p>The Online Classes Management System database design lays a solid foundation for managing students, teachers, classes, and enrollments within an educational platform. With an efficiently structured ERD and normalized relational schema, this design ensures data integrity, scalability, and ease of querying, which are essential for any modern online education system. </p>
+<p>Thank you. :)</p>
